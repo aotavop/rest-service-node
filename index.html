@@ -1,12 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
-    <h1>Hola Mundo soy AOP</h1>
-</body>
+  </head>
+  <body>
+    <input type="number" name="a" id="a" />
+    <input type="number" name="b" id="b" />
+    <button id="sumar">Sumar</button>
+
+    <p id="resultado"></p>
+  </body>
+  <script>
+    let btnSumar = document.getElementById("sumar");
+
+    btnSumar.addEventListener("click", clickBoton);
+
+    function clickBoton() {
+      let numero1 = document.getElementById("a").value;
+      let numero2 = document.getElementById("b").value;
+
+      let etiquetaBasica = document.getElementById('resultado')
+
+      let _data = {
+        a: numero1,
+        b: numero2
+      };
+
+      fetch("/add", {
+        method: "POST",
+        body: JSON.stringify(_data),
+        headers: { "Content-type": "application/json; charset=UTF-8" },
+      })
+        .then((response) => response.json())
+        .then((json) => etiquetaBasica.innerHTML = json.result);
+    }
+  </script>
 </html>
